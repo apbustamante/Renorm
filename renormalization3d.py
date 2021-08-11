@@ -270,31 +270,19 @@ def convergence_mu(mu_1, mu_2):
         return 1, r, -7
 
 
-
 if __name__ == '__main__':
-    pool = mp.Pool(5)
+    pool = mp.Pool()
     main_flag, convergence_flags, lie_flags = zip(* pool.starmap( convergence_mu, itertools.product(x, y) ) )
     pool.close()
 
-main_flag = np.asarray(main_flag).reshape( (len(x), len(y) ) )
-lie_flags = np.asarray(lie_flags).reshape( (len(x), len(y) ) )
-convergence_flags = np.asarray(convergence_flags).reshape( (len(x),len(y)) )
+    main_flag = np.asarray(main_flag).reshape( (len(x), len(y) ) )
+    lie_flags = np.asarray(lie_flags).reshape( (len(x), len(y) ) )
+    convergence_flags = np.asarray(convergence_flags).reshape( (len(x),len(y)) )
 
-
-#np.save('dataflags3dw1-LJ{}-sig{}-grid{}-adapt'.format(L, Sigma, grid_length), main_flag)
-np.save('convflags3dw1-LJ{}-sig{}-grid{}-adapt'.format(L, Sigma, grid_length), convergence_flags)
-#np.save('lieflags3dw1-LJ{}-sig{}-grid{}-adapt'.format(L, Sigma, grid_length), lie_flags)
-
+    np.save('dataflags3dw1-LJ{}-sig{}-grid{}-adapt'.format(L, Sigma, grid_length), main_flag)
+    np.save('convflags3dw1-LJ{}-sig{}-grid{}-adapt'.format(L, Sigma, grid_length), convergence_flags)
+    np.save('lieflags3dw1-LJ{}-sig{}-grid{}-adapt'.format(L, Sigma, grid_length), lie_flags)
 
 
 
-plt.xlabel('$\mu_2$',fontsize =15)
-plt.ylabel('$\mu_1$', fontsize =15)
-plt.title('$\omega =[{},{},{}]$, $V(\phi) = \mu_1\cos(\phi_1) + \mu_2\cos(\phi_2) + 0.1\cos(\phi_3)$, $\Omega =$[{},{},{}]'.format(w[0],w[1],w[2], Omega[0], Omega[1], Omega[2]) )
-plt.imshow(convergence_flags, extent= (np.amin(y), np.amax(y),np.amin(x), np.amax(x)), aspect='auto', origin = 'lower')
-plt.colorbar()
-plt.grid()
-plt.show()
-#plt.savefig('b3dw1-LJ{}-sig{}-grid{}-adapt-flags.pdf'.format(L, Sigma, grid_length) )
-plt.clf()
 
