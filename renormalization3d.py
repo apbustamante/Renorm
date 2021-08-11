@@ -47,9 +47,8 @@ main_flag = []
 lie_flags = []
 convergence_flags = []
 
-
-#### Dimensions of hamiltonian.
 f_dim = np.zeros( (J+1,2*L+1,2*L+1,2*L+1), dtype = precision )
+
 index = np.hstack( (np.arange(0,L+1), np.arange(-L,0) ) )
 v2, v1, v3 = np.meshgrid(index,index,index) 
 [NTv1,NTv2,NTv3] = np.einsum( 'ij, jklm -> iklm', N.T, np.stack( (v1,v2,v3) ) )   
@@ -73,7 +72,7 @@ class Hamil:
         self.Convergence_counter = counter_1
 
 
-def Hmu(mu_1,mu_2): ###will give the hamiltonian H_eps
+def Hmu(mu_1,mu_2): 
     h_new = Hamil( f_dim.copy(), Omega.copy(), w.copy(), None, None, None)
     h_new.f = f_dim.copy()
     h_new.f[0][ mode_1[0], mode_1[1], mode_1[2]] = (0.5)*mu_1
