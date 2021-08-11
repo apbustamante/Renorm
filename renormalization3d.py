@@ -7,10 +7,8 @@ from functools import lru_cache
 import multiprocessing as mp
 from functools import partial
 import itertools
-from matplotlib import pyplot as plt
 
 
-t_map = 1
 L = 5  
 J = 5 
 lowH = 1e-11   
@@ -244,8 +242,8 @@ def RENORM(H_0):
     c[:,v1,v2,v3] = (lamb * (sign_eigen/eigenvalue) ) * c[:,int(sign_eigen)*v1,int(sign_eigen)*v2, int(sign_eigen)*v3] 
     h_new.f = np.power(num*np.ones(J+1), np.arange(J+1)).reshape(J+1,1,1,1) * c 
     h_new.Omega = N_Omega / np.linalg.norm( N_Omega )
-    #h_new = U_adaptive(h_new, t_map)
-    h_new = U_time1(h_new, t_map)
+    #h_new = U_adaptive(h_new, 1)
+    h_new = U_time1(h_new, 1)
     h_new.f[ abs(h_new.f) <= lowH] = 0 
     return h_new
 
