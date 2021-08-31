@@ -160,7 +160,7 @@ def exp_adaptative(H,step):
     if step < 5e-2:  
         h_new.flag = 'need smaller steps'
         h_new.Lie_counter = -7
-        return h_new
+        return exponential(h_new, step)
     res1 = exponential(h_new, step)
     res2 = exponential( exponential( h_new, 0.5*step), 0.5*step)
     if norm( res1.f - res2.f) < abstol + reltol*norm(res1.f):
